@@ -16,6 +16,21 @@ CREATE TABLE `t_logs` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `t_article`;
+CREATE TABLE `t_article` (
+  `cid` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT ,
+  `title` VARCHAR(500) DEFAULT NULL ,
+  `url` VARCHAR(1000) DEFAULT NULL ,
+  `images` VARCHAR(2000) DEFAULT NULL ,
+  `created` INT(10) UNSIGNED DEFAULT '0' ,
+  `modified` INT(10) UNSIGNED DEFAULT '0' ,
+  `author_id` INT(10) UNSIGNED DEFAULT '0' ,
+  `tags` VARCHAR(200) DEFAULT NULL ,
+  `categories` VARCHAR(200) DEFAULT NULL ,
+  PRIMARY KEY (`cid`),
+  KEY `created` (`created`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
+
 DROP TABLE IF EXISTS `t_attach`;
 
 CREATE TABLE `t_attach` (

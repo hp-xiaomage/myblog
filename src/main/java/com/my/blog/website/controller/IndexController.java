@@ -8,8 +8,10 @@ import com.my.blog.website.dto.Types;
 import com.my.blog.website.exception.TipException;
 import com.my.blog.website.modal.Bo.ArchiveBo;
 import com.my.blog.website.modal.Bo.RestResponseBo;
+import com.my.blog.website.modal.Vo.ArticleVo;
 import com.my.blog.website.modal.Vo.CommentVo;
 import com.my.blog.website.modal.Vo.MetaVo;
+import com.my.blog.website.service.IArticleService;
 import com.my.blog.website.service.IMetaService;
 import com.my.blog.website.service.ISiteService;
 import com.my.blog.website.utils.PatternKit;
@@ -45,6 +47,8 @@ public class IndexController extends BaseController {
 
     @Resource
     private IContentService contentService;
+    @Resource
+    private IArticleService articleService;
 
     @Resource
     private ICommentService commentService;
@@ -323,6 +327,29 @@ public class IndexController extends BaseController {
      * @param keyword
      * @return
      */
+    @GetMapping(value = "tempsearch/{keyword}")
+    public String tempsearch(HttpServletRequest request, @PathVariable String keyword, @RequestParam(value = "limit", defaultValue = "12") int limit) {
+        return this.search(request, keyword, 1, limit);
+    }
+
+    @GetMapping(value = "tempsearch/{keyword}/{page}")
+    public String tempsearch(HttpServletRequest request, @PathVariable String keyword, @PathVariable int page, @RequestParam(value = "limit", defaultValue = "12") int limit) {
+        page = page < 0 || page > WebConst.MAX_PAGE ? 1 : page;
+        PageInfo<ContentVo> articles = contentService.getArticles(keyword, page, limit);
+        request.setAttribute("articles", articles);
+        request.setAttribute("type", "搜索");
+        request.setAttribute("keyword", keyword);
+        return this.render("page-category");
+    }
+    
+    
+    /**
+     * mxz 
+     * 新搜索页
+     *
+     * @param keyword
+     * @return
+     */
     @GetMapping(value = "search/{keyword}")
     public String search(HttpServletRequest request, @PathVariable String keyword, @RequestParam(value = "limit", defaultValue = "12") int limit) {
         return this.search(request, keyword, 1, limit);
@@ -331,11 +358,11 @@ public class IndexController extends BaseController {
     @GetMapping(value = "search/{keyword}/{page}")
     public String search(HttpServletRequest request, @PathVariable String keyword, @PathVariable int page, @RequestParam(value = "limit", defaultValue = "12") int limit) {
         page = page < 0 || page > WebConst.MAX_PAGE ? 1 : page;
-        PageInfo<ContentVo> articles = contentService.getArticles(keyword, page, limit);
+        PageInfo<ArticleVo> articles = articleService.getArticles(keyword, page, limit);
         request.setAttribute("articles", articles);
         request.setAttribute("type", "搜索");
         request.setAttribute("keyword", keyword);
-        return this.render("page-category");
+        return this.render("page-article");
     }
 
     /**
