@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="headerFragment(title,active)">
     <meta charset="utf-8"/>
-    <title><th:block th:text="${title!=null?title:'博客后台'}+'- My Blog'"></th:block></title>
+    <title><th:block th:text="${title!=null?title:'博客后台'}+'- cxycode'"></th:block></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <meta content="Coderthemes" name="author"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -25,11 +25,11 @@
         <div class="text-center p-t-10" style="margin: 0 auto;">
             <div class="pull-left" style="padding-left: 10px;">
                 <a th:href="@{/admin/index}">
-                    <img th:src="@{/admin/images/logo.png}" width="50" height="50"/>
+                    <img th:src="@{/admin/images/logo.png}" width="50" height="25"/>
                 </a>
             </div>
             <div class="pull-left" style="padding-left: 10px;">
-                <span style="font-size: 28px; color: #2f353f; line-height: 50px;">My Blog</span>
+                <span style="font-size: 28px; color: #2f353f; line-height: 50px;"></span>
             </div>
         </div>
     </div>
@@ -80,6 +80,19 @@
                        th:class="${active}=='article'?'waves-effect active':'waves-effect'"><i
                             class="fa fa-list" aria-hidden="true"></i><span> 文章管理 </span></a>
                 </li>
+                
+                <li th:class="${active}=='publish'?'active':''">
+                    <a th:href="@{/admin/articlecontent/publish}"
+                       th:class="${active}=='publish'?'waves-effect active':'waves-effect'"><i
+                            class="fa fa-pencil-square-q" aria-hidden="true"></i><span> 发布内容 </span></a>
+                </li>
+                
+                <li th:class="${active}=='articlecontent'?'active':''">
+                    <a th:href="@{/admin/articlecontent}"
+                       th:class="${active}=='articlecontent'?'waves-effect active':'waves-effect'"><i
+                            class="fa fa-listq" aria-hidden="true"></i><span> 内容管理 </span></a>
+                </li>
+                
                 <li th:class="${active}=='page'?'active':''">
                     <a th:href="@{/admin/page}" th:class="${active}=='page'?'waves-effect active':'waves-effect'"><i
                             class="fa fa-file-text" aria-hidden="true"></i><span> 页面管理 </span></a>

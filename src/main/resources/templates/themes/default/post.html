@@ -16,10 +16,10 @@
     <div id="post-content" class="post-content" itemprop="articleBody">
         <p class="post-tags" th:utext="${commons.show_tags(article.tags)}"></p>
         <th:block th:utext="${commons.article(article.content)}"/>
-        <p class="post-info">
+        <!-- <p class="post-info">
             最后编辑时间为:
             <th:block th:text="${commons.fmtdate(article.modified, 'yyyy/MM/dd HH:mm')}"/>
-        </p>
+        </p> -->
     </div>
 </article>
 <div th:replace="themes/default/comments::comments"></div>

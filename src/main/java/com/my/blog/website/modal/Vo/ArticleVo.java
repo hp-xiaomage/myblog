@@ -98,5 +98,14 @@ public class ArticleVo implements Serializable {
 		this.categories = categories;
 	}
 
+	@Override
+	public String toString() {
+		return "ArticleVo [cid=" + cid + ", title=" + title + ", url=" + url
+				+ ", images=" + images + ", created=" + created + ", modified="
+				+ modified + ", authorId=" + authorId + ", tags=" + tags
+				+ ", categories=" + categories + "]";
+	}
+
+	
     
 }

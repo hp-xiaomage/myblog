@@ -3,6 +3,7 @@ package com.my.blog.website.dao;
 import com.my.blog.website.modal.Vo.ArticleVo;
 import com.my.blog.website.modal.Vo.ArticleVoExample;
 import com.my.blog.website.modal.Vo.ArticleVo;
+import com.my.blog.website.modal.Vo.ContentVo;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
@@ -21,6 +22,9 @@ public interface ArticleVoMapper {
     int insertSelective(ArticleVo record);
 
     List<ArticleVo> selectByExample(ArticleVoExample example);
+    List<ArticleVo> selectAll(ArticleVoExample example);
+    
+    ArticleVo selectByPrimaryKey(Integer cid);
 
     int updateByExampleSelective(@Param("record") ArticleVo record, @Param("example") ArticleVoExample example);
 

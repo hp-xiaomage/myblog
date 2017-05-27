@@ -14,6 +14,7 @@ import com.my.blog.website.modal.Vo.MetaVo;
 import com.my.blog.website.service.IArticleService;
 import com.my.blog.website.service.IMetaService;
 import com.my.blog.website.service.ISiteService;
+import com.my.blog.website.utils.L;
 import com.my.blog.website.utils.PatternKit;
 import com.my.blog.website.utils.TaleUtils;
 import com.vdurmont.emoji.EmojiParser;
@@ -275,17 +276,41 @@ public class IndexController extends BaseController {
 
 
     /**
-     * 归档页
+     * 归档页（原本的所有）
      *
      * @return
      */
-    @GetMapping(value = "archives")
-    public String archives(HttpServletRequest request) {
-        List<ArchiveBo> archives = siteService.getArchives();
-        request.setAttribute("archives", archives);
-        return this.render("archives");
+//    @GetMapping(value = "archives")
+//    public String archives(HttpServletRequest request) {
+//        List<ArchiveBo> archives = siteService.getArchives();
+//        request.setAttribute("archives", archives);
+//        return this.render("archives");
+//    }
+    
+    
+    /**
+     *  mxz 新的内容页面  所有
+     *
+     * @return
+     */
+    @GetMapping(value = "page-archives")
+    public String pageArchives(HttpServletRequest request) {
+        return pageArchives(request,1,12);
     }
-
+    
+    /**
+     * mxz 新的内容页面  所有
+     *
+     * @return
+     */
+    @GetMapping(value = "page-archives/{page}")
+    public String pageArchives(HttpServletRequest request, @PathVariable int page, @RequestParam(value = "limit", defaultValue = "12") int limit) {
+    	L.i("mxz 新的所有页面");
+    	page = page < 0 || page > WebConst.MAX_PAGE ? 1 : page;
+        PageInfo<ArticleVo> articles = articleService.getArticles(page, limit);
+        request.setAttribute("articles", articles);
+        return this.render("page-archives");
+    }
     /**
      * 友链页
      *
@@ -352,6 +377,7 @@ public class IndexController extends BaseController {
      */
     @GetMapping(value = "search/{keyword}")
     public String search(HttpServletRequest request, @PathVariable String keyword, @RequestParam(value = "limit", defaultValue = "12") int limit) {
+    	
         return this.search(request, keyword, 1, limit);
     }
 

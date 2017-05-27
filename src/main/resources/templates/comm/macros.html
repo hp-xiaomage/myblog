@@ -46,5 +46,42 @@
     </div>
 </div>
 
+
+<ol class="page-navigator" th:fragment="searchPageNav(pageInfo, prevText, nextText, keyword)">
+    <th:block th:if="${pageInfo.hasPreviousPage}">
+        <li class="prev"><a th:href="@{'/search/'+${keyword}+'/'+${pageInfo.prePage}}" th:text="${prevText}"></a></li>
+    </th:block>
+
+
+    <th:block th:each="navIndex :${ pageInfo.navigatepageNums}">
+        <li th:class="${pageInfo.pageNum==navIndex}?'current':''"><a th:href="@{'/search/'+${keyword}+'/'+${navIndex}}"
+                                                                     th:text="${navIndex}"></a></li>
+    </th:block>
+
+
+    <th:block th:if="${pageInfo.hasNextPage}">
+        <li class="next"><a th:href="@{'/search/'+${keyword}+'/'+${pageInfo.nextPage}}" th:text="${nextText}"></a></li>
+    </th:block>
+
+</ol>
+
+
+<ol class="page-navigator" th:fragment="archicesPageNav(pageInfo, prevText, nextText)">
+    <th:block th:if="${pageInfo.hasPreviousPage}">
+        <li class="prev"><a th:href="@{'/page-archives/'+${pageInfo.prePage}}" th:text="${prevText}"></a></li>
+    </th:block>
+
+
+    <th:block th:each="navIndex :${ pageInfo.navigatepageNums}">
+        <li th:class="${pageInfo.pageNum==navIndex}?'current':''"><a th:href="@{'/page-archives/'+${navIndex}}"
+                                                                     th:text="${navIndex}"></a></li>
+    </th:block>
+
+
+    <th:block th:if="${pageInfo.hasNextPage}">
+        <li class="next"><a th:href="@{'/page-archives/'+${pageInfo.nextPage}}" th:text="${nextText}"></a></li>
+    </th:block>
+
+</ol>
 </body>
 </html>
